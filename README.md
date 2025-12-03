@@ -27,36 +27,6 @@
 -   `darling::usage` provides traits and functions for determining where type parameters and lifetimes are used in a struct or enum.
 -   `darling::util` provides helper types with special `FromMeta` implementations, such as `PathList`.
 
-# Example
-
-```rust,ignore
-use darling::{FromDeriveInput, FromMeta};
-
-#[derive(Default, FromMeta)]
-#[darling(default)]
-pub struct Lorem {
-    #[darling(rename = "sit")]
-    ipsum: bool,
-    dolor: Option<String>,
-}
-
-#[derive(FromDeriveInput)]
-#[darling(attributes(my_crate), forward_attrs(allow, doc, cfg))]
-pub struct MyTraitOpts {
-    ident: syn::Ident,
-    attrs: Vec<syn::Attribute>,
-    lorem: Lorem,
-}
-```
-
-The above code will then be able to parse this input:
-
-```rust,ignore
-/// A doc comment which will be available in `MyTraitOpts::attrs`.
-#[derive(MyTrait)]
-#[my_crate(lorem(dolor = "Hello", sit))]
-pub struct ConsumingType;
-```
 
 # Attribute Macros
 
